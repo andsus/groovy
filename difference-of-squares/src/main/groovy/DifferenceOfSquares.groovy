@@ -1,23 +1,29 @@
+import groovy.transform.Memoized
+
 class DifferenceOfSquares {
     private final int number
 
-    @Lazy private int _sumOfSquares = sumOfSquares()
-    @Lazy private int _squareOfSum = squareOfSum()
+    // @Lazy private int sumOfSquares = (1..number).sum{ it**2 }
+    // @Lazy private int squareOfSum = (1..number).sum()**2
     
     DifferenceOfSquares(num) {
         this.number = num
     }
 
+    @Memoized
     def squareOfSum() {
-        (1..number).iterator().sum()**2
+        // squareOfSum
+        (1..number).sum()**2
     }
-
+    @Memoized
     def sumOfSquares() {
-        (1..number).iterator().sum{ it**2 }
+        // sumOfSquares
+        (1..number).sum{ it**2 }
     }
 
     def difference() {
-        _squareOfSum - _sumOfSquares
+        // squareOfSum - sumOfSquares
+        squareOfSum() - sumOfSquares()
     }
 
 }
